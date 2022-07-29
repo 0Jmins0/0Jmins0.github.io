@@ -26,3 +26,27 @@ Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most ou
 [jekyll-docs]: https://jekyllrb.com/docs/home
 [jekyll-gh]:   https://github.com/jekyll/jekyll
 [jekyll-talk]: https://talk.jekyllrb.com/
+---
+layout: post
+title:  "Hello Blog!"
+date:   2022-07-30 21:03:36 +0530
+categories: Javascript NodeJS
+---
+# 一级标题
+
+## 二级标题
+
+*斜体*
+
+**粗体文字**
+
+***粗斜体***
+```C
+int main()
+{
+    cout<<"Hello Blog!";
+}
+```
+
+
+
