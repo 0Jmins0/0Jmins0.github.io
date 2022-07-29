@@ -36,7 +36,7 @@ Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most ou
 **粗体文字**
 
 ***粗斜体***
-```
+```C++
 int main()
 {
     cout<<"Hello Blog!";
