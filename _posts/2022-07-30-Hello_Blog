@@ -1,1 +1,10 @@
-## title
+---
+layout: post
+title:  "Hello_blog"
+date:   2022-07-30 21:03:36 +0530
+categories: Javascript NodeJS
+---
+''' C++
+int main()
+{}
+'''
