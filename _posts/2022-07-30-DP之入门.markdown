@@ -58,13 +58,102 @@ int main()
 
 ```
 ***
-## 背包问题
-###  - 01背包
-### 完全背包
-### 多重背包
-#### 朴素算法
-#### 二进制优化
-#### 单调队列优化
-### 背包选择路径
-### 背包选择计数
+>## 背包问题
+>>### 01背包
+#### Task Computing
+#### 题目描述
+As it says, Time is Money, Efficiency is Life. A client has a computing task waiting for uploading to the cloud servers. However, due to the resource limits and many other tasks, a task usually cannot be worked on a single server but multiple servers, one after another. You, as an employee of a cloud server provider who specializes in task allocation, need to select several servers from a limited number of cloud servers to perform calculations. We know that even the same servers will perform differently in different environments.
+
+There are nn cloud servers available in the vicinity of the client's region numbered from $1$ to $n$. The ii-th cloud server has two parameters: $w_i$ and $p_i$, which indicate the computing power and transmission efficiency of that server, respectively. The supervisor requires that each task must be computed by exactly $m$ of these servers. The client's computational task is not parallelizable, so you must sequence the work of the $m$ servers to maximize the total computational efficiency. We define the total computational efficiency as follows:
+$\sum_{i=1}^m {w_i} \prod_{j=0}^{i-1} {p_i}$
+##### [题目连接]（https://ac.nowcoder.com/acm/contest/33189/A）
+#### 输入描述
+```
+The first line contains two integers $n$,$m$ ($1 \le n \ge 10_{5}$,$1 \le m \ge min(n,20)$) denoting the number of cloud servers and servers that you have to select.
+
+The second line contains $n$ integers $w_1$,$w_2$,$\ldots$, $w_n$,($1 \le {w_i} \ge 10_{9}$), denoting the servers' computing power.
+
+The third line contains $n$ integers $q_1$,$q_2$,$\ldots$, $q_n$ ($8000 \le q_i \ge 12000$)
+where $p_i$ =$ \frac{q_i}{10000}$ denotes the ii-th server's transmission efficiency.
+```
+#### 输出描述
+```
+Output a float number denoting the maximal total computational efficiency. Your answer is considered correct if the relative or absolute error between yours and the standard solution is not greater than $10^{-6}$
+```
+#### 样例1
+##### 输入
+```
+5 2
+1 2 3 4 5 
+12000 11000 10000 9000 8000
+```
+##### 输出
+```
+8.500000000
+```
+### 思路
+1、首先，每个机器选取的先后顺序会影响其价值，先对其进行排序。
+```
+设两个机器分别为 $x,y$，
+当$x$在前，$y$在后的价值为 
+$w_x*p_k+w_y*p_x*p_k$,
+当$y$在前，$y$在后的价值为 
+$w_y*p_k+w_x*p_y*p_k$
+令 式1>式2 得
+$w_x+w_y*p_x>w_y+w_x*p_y$
+按照该式子排序
+```
+2、排序后，不论从前到后还是从后到前，均为一个有顺序的子序列，所以前后方向不重要
+3、越靠后面选择的，$p$的影响更大。
+```
+设三个设备$1,2,3$，则价值为
+$ w_1 + w_2 * p_1 +w_3 * p_1 * p_2 = p_1 * (w_2 + w_3 * p_2)+w_1$
+以此类推
+```
+4、dp方程 $ f[i][m] $ 表示考虑到 第 i 个， 装了 m 个的最大值
+```
+转移方程: $f[i][m]=max(f[i-1][m],f[i-1][m-1] * p[i]+ w[i])$
+```
+### 代码
+```c
+#include<bits/stdc++.h>
+using namespace std;
+const int MAXN=1e5+10;
+const int INF=0x3f3f3f;
+typedef long long ll;
+struct node
+{
+    double w,p;
+}no[MAXN];
+double f[MAXN][30],P[30][MAXN];
+bool cmp(node x,node y)
+{
+    return (x.w+x.p*y.w)>(y.w+x.w*y.p);
+}
+int main()
+{ 
+    int n,m;
+    cin>>n>>m;
+    for(int i=1;i<=n;i++)cin>>no[i].w;
+    for(int i=1;i<=n;i++) cin>>no[i].p,no[i].p/=10000;
+    sort(no+1,no+n+1,cmp);
+    for(int i=n;i>=1;i--)
+    {
+        for(int k=1;k<=m;k++)
+        {
+            f[i][k]=max(f[i][k],no[i].w+f[i+1][k-1]*no[i].p);
+        }   
+        for(int k=1;k<=m;k++) f[i][k]=max(f[i][k],f[i+1][k]);       
+    }
+    printf("%lf",f[1][m]);
+    return 0;
+}
+```
+>>### 完全背包
+>>### 多重背包
+>>>#### 朴素算法
+>>>#### 二进制优化
+>>>#### 单调队列优化
+>>### 背包选择路径
+>>### 背包选择计数
 ***
