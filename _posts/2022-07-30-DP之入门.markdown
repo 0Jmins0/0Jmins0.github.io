@@ -4,7 +4,7 @@ title:  "线性dp 刷题（一）"
 date:   2022-07-28 09:03:36 +0530
 categories: C++
 ---
-### P1681 最大正方形-二
+## P1681 最大正方形-二
 ##### [题目连接](https://www.luogu.com.cn/problem/P1681)
 #### CODE
 ```c
